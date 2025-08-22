@@ -47,6 +47,6 @@ Other data keys can be configured in [src/lib/constants.ts](src/lib/constants.ts
 
 ## Authorization
 
-This dashboard currently supports [Auth0](https://auth0.com/) as its authorization provider. You can learn how to set up and configure your Auth0 account in this [tutorial](https://auth0.com/docs/quickstart/spa/react/interactive).
+This dashboard currently supports [Auth0](https://auth0.com/) as an authorization provider. See this [tutorial](https://auth0.com/docs/quickstart/spa/react/interactive) for instructions on setting up and configuring your Auth0 account.
 
-After configuration, all API requests will be signed with a JWT token that your backend can verify.
+Once configured, API requests are signed with a JWT token, which your backend can verify.
