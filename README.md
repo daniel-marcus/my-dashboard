@@ -1,6 +1,6 @@
 # My Dashboard
 
-A simple dashboard for monitoring sensor data from JWT secured endpoints. Built with [Next.js](https://github.com/vercel/next.js) and [lightweight-chart](https://github.com/tradingview/lightweight-charts).
+A simple dashboard for monitoring sensor data from JWT secured endpoints. Built with [Next.js](https://github.com/vercel/next.js) and [lightweight-charts](https://github.com/tradingview/lightweight-charts).
 
 ![](screenshot.png)
 
