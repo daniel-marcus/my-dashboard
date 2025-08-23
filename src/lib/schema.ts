@@ -14,5 +14,4 @@ export const ViewDefSchema = OptionSchema.extend({
   props: z.array(PropSchema),
   label: z.string().optional(),
   unit: z.string(),
-  trendVals: z.number().optional(),
 })

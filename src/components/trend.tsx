@@ -4,6 +4,7 @@ import { useMemo } from "react"
 import { TrendDownIcon, TrendStableIcon, TrendUpIcon } from "@/components/icons"
 import type { DataEntry, ViewDef } from "../lib/types"
 
+const TREND_VALS = 10
 const TREND_THRESHOLD = 0.01
 
 interface TrendProps {
@@ -13,10 +14,11 @@ interface TrendProps {
 
 export const Trend = ({ data, currView }: TrendProps) => {
   const trend = useMemo(() => {
+    const firstPropKey = currView.props[0].key
     const latestVals = data
-      .filter((d) => typeof d[currView.props[0].key] === "number")
-      .slice(-(currView.trendVals || 10))
-      .map((d, i) => ({ x: i, y: d[currView.props[0].key]! }))
+      .filter((d) => typeof d[firstPropKey] === "number")
+      .slice(-TREND_VALS) // use last x values for trend
+      .map((d, i) => ({ x: i, y: d[firstPropKey]! }))
     return linearRegression(latestVals)
   }, [data, currView])
   const Icon =

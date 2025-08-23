@@ -5,26 +5,22 @@ export const VIEWS: ViewDef[] = [
     key: "co2",
     props: [{ key: "co2" }],
     unit: "ppm",
-    trendVals: 10,
     default: true,
   },
   {
     key: "temp",
     props: [{ key: "temp" }],
     unit: "°C",
-    trendVals: 10,
   },
   {
     key: "ext+temp",
     props: [{ key: "temp_ext", color: "hsl(162, 70%, 50%)" }, { key: "temp" }],
     unit: "°C",
-    trendVals: 10,
   },
   {
     key: "hum",
     props: [{ key: "hum" }],
     unit: "%",
-    trendVals: 20,
   },
 ]
 
