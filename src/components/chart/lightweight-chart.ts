@@ -20,6 +20,9 @@ export function useLightweightChart() {
       width: containerRef.current.clientWidth,
       height: containerRef.current.clientHeight,
       autoSize: true,
+      handleScroll: {
+        vertTouchDrag: false,
+      },
     })
     setChart(newChart)
 
