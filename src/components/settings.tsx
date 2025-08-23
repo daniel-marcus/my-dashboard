@@ -1,62 +1,39 @@
-import { useMemo, useState } from "react"
-import { TextArea, TextInput } from "./inputs"
-import { SaveIcon, XIcon } from "./icons"
-import type { Setting, SettingsObj, ViewDef } from "@/lib/types"
-import { ViewDefSchema } from "@/lib/schema"
-import { z, ZodError } from "zod"
+import { useMemo } from "react"
 import { toast } from "sonner"
+import { z, ZodError } from "zod"
+import { useSettings } from "@/lib/settings"
+import { TextInput } from "./inputs"
+import { ViewDefSchema } from "@/lib/schema"
+import type { Setting, SettingsObj, ViewDef } from "@/lib/types"
 
-const ALL_SETTINGS: Setting[] = [
-  { key: "title", comp: TextInput },
-  { key: "views", comp: TextArea },
-]
+const ALL_SETTINGS: Setting[] = [{ key: "title", comp: TextInput }]
 
-export interface SettingsProps {
-  settings: SettingsObj
-  setSettings: React.Dispatch<React.SetStateAction<SettingsObj>>
-}
-
-export const Settings = ({ settings, setSettings }: SettingsProps) => {
-  const [settingsLoc, setSettingsLoc] = useState(settings)
-  const hasChanged = settingsLoc !== settings
+export const Settings = () => {
+  const [settings, setSettings] = useSettings()
   return (
     <div className="flex flex-col gap-2">
       {ALL_SETTINGS.map((s) => {
         const key = s.key as keyof SettingsObj
         const Comp = s.comp
+        const value = settings[key]
         return (
           <Comp
             key={s.key}
-            value={settingsLoc[key]}
-            onChange={(newV) => setSettingsLoc((s) => ({ ...s, [key]: newV }))}
+            value={typeof value === "string" ? value : JSON.stringify(value)}
+            onChange={(newV) => setSettings((s) => ({ ...s, [key]: newV }))}
           />
         )
       })}
-      <div className="flex items-center justify-end gap-2 py-2">
-        <button
-          className="btn-round"
-          onClick={() => setSettingsLoc(settings)}
-          disabled={!hasChanged}
-        >
-          <XIcon />
-        </button>
-        <button
-          className="btn-round"
-          onClick={() => setSettings(settingsLoc)}
-          disabled={!hasChanged}
-        >
-          <SaveIcon />
-        </button>
-      </div>
     </div>
   )
 }
 
-export function useViewSettings(settings: SettingsObj) {
+export function useViewSettings() {
+  // TODO: validate schema before saving
+  const [settings] = useSettings()
   const views = useMemo(() => {
     try {
-      const viewsArr = JSON.parse(settings.views)
-      const parsedViews = z.array(ViewDefSchema).parse(viewsArr)
+      const parsedViews = z.array(ViewDefSchema).parse(settings.views)
       return parsedViews
     } catch (err) {
       console.error(err)

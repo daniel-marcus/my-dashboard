@@ -12,7 +12,15 @@ export const TextInput: SettingsComp<string> = ({ value, onChange }) => (
 export const TextArea: SettingsComp<string> = ({ value, onChange }) => (
   <textarea
     className="input"
-    value={JSON.stringify(JSON.parse(value), undefined, 2)}
+    value={value}
     onChange={(e) => onChange(e.target.value)}
   />
 )
+
+export function formatJson(str: string) {
+  try {
+    return JSON.stringify(JSON.parse(str), undefined, 2)
+  } catch {
+    return str
+  }
+}

@@ -27,5 +27,5 @@ export interface Setting<T = string> {
 
 export interface SettingsObj {
   title: string
-  views: string
+  views: ViewDef[]
 }

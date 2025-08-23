@@ -1,3 +1,4 @@
+import { getColor } from "./colors"
 import type { ViewDef, RangeDef, SettingsObj } from "./types"
 
 export const VIEWS: ViewDef[] = [
@@ -14,7 +15,10 @@ export const VIEWS: ViewDef[] = [
   },
   {
     key: "ext+temp",
-    props: [{ key: "temp_ext", color: "hsl(162, 70%, 50%)" }, { key: "temp" }],
+    props: [
+      { key: "temp_ext", color: getColor(1) },
+      { key: "temp", color: getColor(0) },
+    ],
     unit: "°C",
   },
   {
@@ -38,5 +42,5 @@ export const RANGES: RangeDef[] = [
 
 export const DEFAULT_SETTINGS: SettingsObj = {
   title: "My Dashboard",
-  views: JSON.stringify(VIEWS),
+  views: VIEWS,
 }

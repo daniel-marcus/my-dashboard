@@ -4,12 +4,10 @@ import { Auth0Provider } from "@auth0/auth0-react"
 import { Toaster } from "sonner"
 import { Login } from "./login"
 import { Dashboard } from "./dashboard"
-import { useLocalStorage } from "@/lib/local-storage"
-import { DEFAULT_SETTINGS } from "@/lib/constants"
+import { SettingsProvider } from "@/lib/settings"
 
-export const App = () => {
-  const [settings, setSettings] = useLocalStorage(DEFAULT_SETTINGS)
-  return (
+export const App = () => (
+  <SettingsProvider>
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN ?? ""}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID ?? ""}
@@ -22,8 +20,8 @@ export const App = () => {
       cacheLocation="localstorage"
     >
       <Login />
-      <Dashboard settings={settings} setSettings={setSettings} />
+      <Dashboard />
       <Toaster position="top-right" richColors />
     </Auth0Provider>
-  )
-}
+  </SettingsProvider>
+)
