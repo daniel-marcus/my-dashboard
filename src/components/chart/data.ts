@@ -33,7 +33,6 @@ export function useChartData(
     chartData.forEach(({ id, color, data }) => {
       let series = seriesMap.get(id)
       if (!series) {
-        console.log("ADDING SERIES", id)
         series = chart!.addSeries(LineSeries, { color })
         seriesMap.set(id, series)
         chartSync.registerSeries(chart!, series)
