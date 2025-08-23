@@ -1,6 +1,7 @@
 "use client"
 
 import { Auth0Provider } from "@auth0/auth0-react"
+import { Toaster } from "sonner"
 import { Login } from "./login"
 import { Dashboard } from "./dashboard"
 import { useLocalStorage } from "@/lib/local-storage"
@@ -22,6 +23,7 @@ export const App = () => {
     >
       <Login />
       <Dashboard settings={settings} setSettings={setSettings} />
+      <Toaster position="top-right" richColors />
     </Auth0Provider>
   )
 }

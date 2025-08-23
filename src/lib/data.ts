@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
+import { toast } from "sonner"
 import type { DataEntry } from "./types"
 import type { Selected } from "./selected"
 
@@ -70,10 +71,16 @@ async function getData(
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
-    const data = await res.json()
-    return data as DataEntry[]
+    if (res.ok) {
+      const data = await res.json()
+      return data as DataEntry[]
+    } else throw new Error(`Server error: ${await res.text()}`)
   } catch (err) {
-    console.error("Error fetching data", err)
+    if (err instanceof Error) {
+      toast.error(err.message)
+    } else {
+      toast.error("An unexpected error occurred")
+    }
     return []
   }
 }
