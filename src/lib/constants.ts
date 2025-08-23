@@ -6,10 +6,6 @@ export const VIEWS: ViewDef[] = [
     props: [{ key: "co2" }],
     unit: "ppm",
     trendVals: 10,
-    markers: [
-      { axis: "y", value: 1000 },
-      { axis: "y", value: 2000 },
-    ],
     default: true,
   },
   {

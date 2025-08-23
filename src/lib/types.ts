@@ -1,28 +1,10 @@
+import { z } from "zod"
+import { OptionSchema, ViewDefSchema } from "./schema"
 import type { FC } from "react"
 
-interface MarkerDef {
-  axis: "x" | "y"
-  value: number
-}
+export type Option = z.infer<typeof OptionSchema>
 
-type Prop = {
-  key: string
-  color?: string
-}
-
-export interface Option {
-  key: string
-  default?: boolean
-}
-
-export interface ViewDef extends Option {
-  props: Prop[]
-  label?: string
-  unit: string
-  filter?: (data: DataEntry) => boolean
-  markers?: MarkerDef[]
-  trendVals?: number
-}
+export type ViewDef = z.infer<typeof ViewDefSchema>
 
 export interface RangeDef extends Option {
   rangeMs?: number
@@ -31,16 +13,6 @@ export interface RangeDef extends Option {
 export interface DataEntry {
   ts: number
   [key: string]: number | null
-}
-
-export interface Series {
-  id: string
-  color: string
-  data: {
-    x: string
-    y: number
-    ts: number
-  }[]
 }
 
 export type SettingsComp<T> = FC<{

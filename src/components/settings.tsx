@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { TextArea, TextInput } from "./inputs"
-import type { Setting, SettingsObj } from "@/lib/types"
 import { SaveIcon, XIcon } from "./icons"
+import type { Setting, SettingsObj, ViewDef } from "@/lib/types"
+import { ViewDefSchema } from "@/lib/schema"
+import { z, ZodError } from "zod"
+import { toast } from "sonner"
 
 const ALL_SETTINGS: Setting[] = [
   { key: "title", comp: TextInput },
@@ -47,4 +50,23 @@ export const Settings = ({ settings, setSettings }: SettingsProps) => {
       </div>
     </div>
   )
+}
+
+export function useViewSettings(settings: SettingsObj) {
+  const views = useMemo(() => {
+    try {
+      const viewsArr = JSON.parse(settings.views)
+      const parsedViews = z.array(ViewDefSchema).parse(viewsArr)
+      return parsedViews
+    } catch (err) {
+      console.error(err)
+      if (err instanceof ZodError) {
+        toast.error(
+          "Validation error: Please check JavaScript console for details"
+        )
+      } else if (err instanceof Error) toast.error(err.message)
+      return [] as ViewDef[]
+    }
+  }, [settings.views])
+  return views
 }

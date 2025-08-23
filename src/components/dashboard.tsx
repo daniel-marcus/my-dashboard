@@ -1,15 +1,13 @@
 "use client"
 
-import { useMemo } from "react"
 import { useData } from "@/lib/data"
 import { useOptions } from "@/lib/options"
 import { useSharedRange } from "@/components/chart/chart-sync"
+import { useViewSettings, type SettingsProps } from "./settings"
 import { Header } from "./header"
 import { View } from "./view"
 import { RefreshIcon } from "./icons"
 import { RANGES } from "@/lib/constants"
-import type { SettingsProps } from "./settings"
-import type { ViewDef } from "@/lib/types"
 
 type DashboardProps = SettingsProps
 
@@ -17,14 +15,7 @@ export function Dashboard(props: DashboardProps) {
   const [data, updateData, deleteEntry, isLoading] = useData()
   const [currRange, RangesBar] = useOptions(RANGES)
   useSharedRange(data, currRange)
-  const views = useMemo(() => {
-    try {
-      return JSON.parse(props.settings.views) as ViewDef[]
-    } catch (e) {
-      console.error(e)
-      return [] as ViewDef[]
-    }
-  }, [props.settings.views])
+  const views = useViewSettings(props.settings)
   return (
     <main className="pb-16 mx-auto sm:max-w-[1100px]">
       <Header {...props} />
