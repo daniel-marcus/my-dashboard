@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { toast } from "sonner"
 import type { DataEntry } from "./types"
-import type { Selected } from "./selected"
+import type { Selected } from "@/components/view/selected"
 
 const DATA_API = process.env.NEXT_PUBLIC_DATA_API
 const AUTH0_DOMAIN = process.env.NEXT_PUBLIC_AUTH0_DOMAIN

@@ -17,11 +17,12 @@ export function useLightweightChart() {
         priceFormatter: (v: number) =>
           v % 1 === 0 ? v.toString() : v.toFixed(1),
       },
-      width: containerRef.current.clientWidth,
-      height: containerRef.current.clientHeight,
       autoSize: true,
       handleScroll: {
         vertTouchDrag: false,
+      },
+      handleScale: {
+        axisPressedMouseMove: { price: false },
       },
     })
     setChart(newChart)

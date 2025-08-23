@@ -1,4 +1,4 @@
-import { useSelected } from "@/lib/selected"
+import { useSelected } from "./selected"
 import { useEditMode } from "@/lib/edit-mode"
 import { ViewHeader } from "./header"
 import { ViewSettings } from "./settings"
