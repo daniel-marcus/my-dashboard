@@ -1,23 +1,21 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { LineSeries, type UTCTimestamp } from "lightweight-charts"
 import { VertLine } from "./vertical-line"
 import { timeToLocal } from "./timezones"
-import type { ChartData, ChartApi } from "./types"
+import type { DataEntry } from "@/lib/types"
+import type { ChartApi } from "./types"
 
-export function useDayDividers(data: ChartData, chart: ChartApi) {
+export function useDayDividers(data: DataEntry[], chart: ChartApi) {
+  const dividerSeries = useMemo(() => chart?.addSeries(LineSeries), [chart])
   useEffect(() => {
-    if (!chart) return
-    const series = data[0]
-    const xMin = series.data[0]?.time
-    const xMax = series.data.at(-1)?.time
-    if (!xMin || !xMax) return
-    const xMinDate = new Date(xMin * 1000).setHours(0, 0, 0, 0)
-    const xMaxDate = new Date(xMax * 1000)
+    if (!chart || !dividerSeries || !data.length) return
 
-    const dividerSeries = chart.addSeries(LineSeries)
+    const xMin = data.at(0)!.ts
+    const xMax = data.at(-1)!.ts
+    const xMinDate = new Date(xMin).setHours(0, 0, 0, 0)
+    const xMaxDate = new Date(xMax)
 
     const whitespaceData: { time: UTCTimestamp }[] = []
-
     for (
       let d = new Date(xMinDate);
       d <= xMaxDate;
@@ -26,7 +24,6 @@ export function useDayDividers(data: ChartData, chart: ChartApi) {
       const time = timeToLocal(d.getTime())
       whitespaceData.push({ time })
     }
-
     dividerSeries.setData(whitespaceData)
 
     whitespaceData.forEach(({ time }) => {
@@ -36,9 +33,5 @@ export function useDayDividers(data: ChartData, chart: ChartApi) {
       })
       dividerSeries.attachPrimitive(divider)
     })
-
-    return () => {
-      chart.removeSeries(dividerSeries)
-    }
-  }, [data, chart])
+  }, [data, chart, dividerSeries])
 }

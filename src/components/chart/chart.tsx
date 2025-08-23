@@ -13,8 +13,8 @@ export interface ChartProps {
 
 export const Chart = ({ data, currView }: ChartProps) => {
   const [containerRef, chart] = useLightweightChart()
-  const chartData = useChartData(data, currView, chart)
-  useDayDividers(chartData, chart)
+  const ready = useDayDividers(data, chart)
+  useChartData(data, currView, chart, true)
   useChartSync(chart)
   return <div className="h-full" ref={containerRef} />
 }

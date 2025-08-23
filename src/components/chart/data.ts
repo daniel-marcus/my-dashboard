@@ -8,7 +8,8 @@ import type { ChartApi } from "./types"
 export function useChartData(
   data: DataEntry[],
   currView: ViewDef,
-  chart: ChartApi
+  chart: ChartApi,
+  active: boolean
 ) {
   const chartData = useMemo(
     () =>
@@ -27,14 +28,15 @@ export function useChartData(
 
   const seriesMapRef = useRef<Map<string, ISeriesApi<"Line">>>(new Map())
   useEffect(() => {
-    if (!chart) return
+    if (!chart || !active) return
     const seriesMap = seriesMapRef.current
     chartData.forEach(({ id, color, data }) => {
       let series = seriesMap.get(id)
       if (!series) {
-        series = chart.addSeries(LineSeries, { color })
+        console.log("ADDING SERIES", id)
+        series = chart!.addSeries(LineSeries, { color })
         seriesMap.set(id, series)
-        chartSync.registerSeries(chart, series)
+        chartSync.registerSeries(chart!, series)
       }
       series.setData(data)
     })
@@ -48,7 +50,7 @@ export function useChartData(
           chartSync.unregisterSeries(chart, series)
         })
     }
-  }, [chart, chartData])
+  }, [chart, chartData, active])
 
   return chartData
 }
