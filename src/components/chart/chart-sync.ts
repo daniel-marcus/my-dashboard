@@ -7,37 +7,46 @@ import type { ChartApi } from "./types"
 import type { DataEntry, RangeDef } from "@/lib/types"
 
 class ChartSyncer {
-  charts: IChartApi[] = []
-  serieses: Map<IChartApi, Set<ISeriesApi<"Line">>> = new Map()
+  private _charts: IChartApi[] = []
+  private _serieses: Map<IChartApi, Set<ISeriesApi<"Line">>> = new Map()
+  private _updatingCharts = new Set<IChartApi>() // mark programmatically updated charts to avoid feedback loops
+  private _updTimeout?: NodeJS.Timeout
   registerChart(chart: IChartApi) {
-    this.charts = [...this.charts, chart]
+    this._charts = [...this._charts, chart]
   }
   unregisterChart(chart: IChartApi) {
-    this.charts = this.charts.filter((c) => c !== chart)
-    this.serieses.delete(chart)
+    this._charts = this._charts.filter((c) => c !== chart)
+    this._serieses.delete(chart)
   }
   registerSeries(chart: IChartApi, series: ISeriesApi<"Line">) {
-    const seriesSet = this.serieses.get(chart) ?? new Set<ISeriesApi<"Line">>()
+    const seriesSet = this._serieses.get(chart) ?? new Set<ISeriesApi<"Line">>()
     seriesSet.add(series)
-    this.serieses.set(chart, seriesSet)
+    this._serieses.set(chart, seriesSet)
   }
   unregisterSeries(chart: IChartApi, series: ISeriesApi<"Line">) {
-    this.serieses.get(chart)?.delete(series)
+    this._serieses.get(chart)?.delete(series)
   }
   updateRange(newRange: IRange<Time>, sender?: IChartApi) {
-    this.charts.forEach((chart) => {
+    if (sender && this.isUpdating(sender)) return // ignore feedback events from programmatically updated charts
+    clearTimeout(this._updTimeout)
+    this._charts.forEach((chart) => {
       if (chart === sender) return
+      this._updatingCharts.add(chart) // mark chart as being programmatically updated
       try {
         chart.timeScale().setVisibleRange(newRange)
       } catch {}
     })
+    this._updTimeout = setTimeout(() => this._updatingCharts.clear(), 50)
+  }
+  isUpdating(chart: IChartApi) {
+    return this._updatingCharts.has(chart)
   }
   updateCursor(time: Time | undefined, sender: IChartApi) {
-    this.charts.forEach((chart) => {
+    this._charts.forEach((chart) => {
       if (chart === sender) return
       if (!time) chart.clearCrosshairPosition()
       else {
-        const series = this.serieses.get(chart)?.values().next().value
+        const series = this._serieses.get(chart)?.values().next().value
         if (!series) return
         try {
           chart.setCrosshairPosition(0, time, series)

@@ -24,6 +24,7 @@ export function useLightweightChart() {
       handleScale: {
         axisPressedMouseMove: { price: false },
       },
+      kineticScroll: { mouse: true },
     })
     setChart(newChart)
 
