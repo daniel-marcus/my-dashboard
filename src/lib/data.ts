@@ -66,7 +66,7 @@ async function getData(
   const accessToken = !!AUTH0_DOMAIN ? await getAccessToken() : ""
   if (process.env.NODE_ENV === "development") console.log({ accessToken })
   const url = new URL(`${DATA_API}/data`)
-  if (latestTs) url.searchParams.set("after", latestTs.toString())
+  if (latestTs) url.searchParams.set("from", latestTs.toString())
   try {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
