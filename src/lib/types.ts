@@ -11,7 +11,7 @@ export interface RangeDef extends Option {
 }
 
 export interface DataEntry {
-  ts: number
+  ts: number // Unix timestamp in seconds
   [key: string]: number | null
 }
 

@@ -28,7 +28,7 @@ export const VIEWS: ViewDef[] = [
   },
 ]
 
-const HOUR = 60 * 60 * 1000
+const HOUR = 60 * 60
 
 export const RANGES: RangeDef[] = [
   { key: "all" },

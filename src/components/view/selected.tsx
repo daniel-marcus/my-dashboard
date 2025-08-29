@@ -26,7 +26,7 @@ export function useSelected(deleteEntry: DeleteFunc) {
 }
 
 function getDateStr(ts: number) {
-  return new Date(ts).toLocaleString([], {
+  return new Date(ts * 1000).toLocaleString([], {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

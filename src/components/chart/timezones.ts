@@ -1,8 +1,8 @@
 import type { UTCTimestamp } from "lightweight-charts"
 
 // https://tradingview.github.io/lightweight-charts/docs/time-zones
-export function timeToLocal(originalTimeMs: number) {
-  const d = new Date(originalTimeMs)
+export function timeToLocal(originalUnixTs: number) {
+  const d = new Date(originalUnixTs * 1000)
   return (Date.UTC(
     d.getFullYear(),
     d.getMonth(),

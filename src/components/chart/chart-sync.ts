@@ -89,7 +89,7 @@ export function useSharedRange(data: DataEntry[], currRange: RangeDef) {
     const latest = data.at(-1)!
     const to = timeToLocal(latest.ts)
     const from = (
-      typeof currRange.rangeMs === "number" ? to - currRange.rangeMs / 1000 : 0
+      typeof currRange.rangeMs === "number" ? to - currRange.rangeMs : 0
     ) as UTCTimestamp
     chartSync.updateRange({ from, to })
   }, [data, currRange])
