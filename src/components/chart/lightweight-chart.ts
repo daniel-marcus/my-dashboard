@@ -63,6 +63,7 @@ function getStyleOptions(): DeepPartial<ChartOptions> {
       borderColor: gridColor,
       ticksVisible: true,
       timeVisible: true,
+      secondsVisible: false,
       minBarSpacing: 0,
       fixLeftEdge: true,
       fixRightEdge: true,
