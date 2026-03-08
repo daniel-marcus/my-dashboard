@@ -17,7 +17,7 @@ export function Dashboard() {
   const views = useViewSettings()
   return (
     <EditModeProvider>
-      <main className="pb-16 mx-auto sm:max-w-[1100px]">
+      <main className="pb-16 mx-auto sm:max-w-275">
         <Header />
         <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4">
           {views.map((view, i) => (

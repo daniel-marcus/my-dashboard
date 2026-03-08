@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { useSettings } from "@/lib/settings"
 import { SettingsIcon } from "./icons"
 import { Settings } from "./settings"
