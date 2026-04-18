@@ -32,22 +32,23 @@ export function useData() {
       const success = await deleteData(getAccessTokenSilently, ts, key)
       if (success)
         setData((prevData) =>
-          prevData.map((d) => (d.ts === ts ? { ...d, [key]: null } : d))
+          prevData.map((d) => (d.ts === ts ? { ...d, [key]: null } : d)),
         )
       setIsLoading(false)
       return success
     },
-    [getAccessTokenSilently]
+    [getAccessTokenSilently],
   )
 
   useEffect(() => {
     if (!!AUTH0_DOMAIN && !isAuthenticated) return
-    updateData()
-    const timeout = setInterval(updateData, UPD_INTERVAL)
+    const initial = setTimeout(updateData, 0)
+    const interval = setInterval(updateData, UPD_INTERVAL)
     const onTabResumed = () => !document.hidden && updateData()
     document.addEventListener("visibilitychange", onTabResumed)
     return () => {
-      clearInterval(timeout)
+      clearTimeout(initial)
+      clearInterval(interval)
       document.removeEventListener("visibilitychange", onTabResumed)
     }
   }, [isAuthenticated, updateData])
@@ -59,7 +60,7 @@ export function useData() {
 
 async function getData(
   getAccessToken: () => Promise<string>,
-  latestTs?: number
+  latestTs?: number,
 ) {
   if (document.visibilityState === "hidden") return [] as DataEntry[]
   if (!DATA_API) throw new Error("DATA_API is not defined")
@@ -88,7 +89,7 @@ async function getData(
 async function deleteData(
   getAccessToken: () => Promise<string>,
   ts: number,
-  key: keyof DataEntry
+  key: keyof DataEntry,
 ) {
   if (!window.confirm("Sure?")) return
   if (!DATA_API) throw new Error("DATA_API is not defined")
