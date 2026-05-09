@@ -1,26 +1,19 @@
 name: Dependabot auto-merge
 on: pull_request
-
 permissions:
-  contents: write
   pull-requests: write
+  contents: write
 
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'daniel-marcus/my-dashboard'
     steps:
       - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v2
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Auto-merge Dependabot PRs except major version updates
-        # Only merge if it's NOT a major update AND NOT a GitHub Action update
-        if: |
-          steps.metadata.outputs.update-type != 'version-update:semver-major' &&
-          steps.metadata.outputs.package-ecosystem != 'github_actions'
-        run: gh pr merge --auto --merge "$PR_URL"
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+      - name: Auto-merge Dependabot PRs that are patch versions
+        if: steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
+        run: gh pr merge --auto --squash "${{github.event.pull_request.html_url}}"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
