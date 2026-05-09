@@ -13,20 +13,20 @@
     "@auth0/auth0-react": "^2.16.2",
     "fancy-canvas": "^2.1.0",
     "lightweight-charts": "^5.2.0",
-    "next": "16.2.4",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "next": "16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "sonner": "^2.0.7",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@tailwindcss/postcss": "^4.2.4",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.4",
+    "eslint-config-next": "16.2.6",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
   },
