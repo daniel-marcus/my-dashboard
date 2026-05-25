@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Trend } from "@/components/trend"
+import { Trend } from "@/components/Trend"
 import type { DataEntry, ViewDef } from "@/lib/types"
 
 const view: ViewDef = {

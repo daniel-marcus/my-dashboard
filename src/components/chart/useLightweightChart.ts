@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { createChart, ColorType } from "lightweight-charts"
-import { useIsDarkMode } from "@/lib/is-dark-mode"
+import { useIsDarkMode } from "@/lib/useIsDarkMode"
 import type { ChartOptions, DeepPartial } from "lightweight-charts"
 import type { ChartApi } from "./types"
 

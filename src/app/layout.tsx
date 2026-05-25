@@ -1,4 +1,4 @@
-import { App } from "@/components/app"
+import { App } from "@/components/App"
 import "./globals.css"
 import type { Metadata } from "next"
 

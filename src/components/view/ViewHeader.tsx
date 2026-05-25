@@ -1,4 +1,4 @@
-import { Trend } from "../trend"
+import { Trend } from "@/components/Trend"
 import type { DataEntry, ViewDef } from "@/lib/types"
 
 interface ViewHeaderProps {

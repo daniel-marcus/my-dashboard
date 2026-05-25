@@ -1,9 +1,9 @@
 "use client"
 
-import { useSettings } from "@/lib/settings"
-import { SettingsIcon } from "./icons"
-import { Settings } from "./settings"
-import { useEditMode } from "@/lib/edit-mode"
+import { useSettings } from "@/lib/useSettings"
+import { SettingsIcon } from "./Icons"
+import { Settings } from "./Settings"
+import { useEditMode } from "@/lib/useEditMode"
 
 export const Header = () => {
   const [{ title }] = useSettings()

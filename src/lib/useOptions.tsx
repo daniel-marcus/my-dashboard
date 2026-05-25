@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { OptionBar } from "@/components/option-bar"
+import { OptionBar } from "@/components/OptionBar"
 import type { Option } from "./types"
 
 export function useOptions<T extends Option>(options: T[]) {

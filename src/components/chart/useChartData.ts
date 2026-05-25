@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react"
 import { ISeriesApi, LineSeries } from "lightweight-charts"
 import { timeToLocal } from "./timezones"
-import { chartSync } from "./chart-sync"
+import { chartSync } from "./useChartSync"
 import { getColor } from "@/lib/colors"
 import type { DataEntry, ViewDef } from "@/lib/types"
 import type { ChartApi } from "./types"

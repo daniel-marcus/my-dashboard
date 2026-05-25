@@ -1,8 +1,8 @@
 "use client"
 
 import { useMemo } from "react"
-import { TrendDownIcon, TrendStableIcon, TrendUpIcon } from "@/components/icons"
-import type { DataEntry, ViewDef } from "../lib/types"
+import { TrendDownIcon, TrendStableIcon, TrendUpIcon } from "@/components/Icons"
+import type { DataEntry, ViewDef } from "@/lib/types"
 
 const TREND_VALS = 10
 const TREND_THRESHOLD = 0.01

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react"
 import { LineSeries, type UTCTimestamp } from "lightweight-charts"
-import { VertLine } from "./vertical-line"
+import { VertLine } from "./VertLine"
 import { timeToLocal } from "./timezones"
 import type { DataEntry } from "@/lib/types"
 import type { ChartApi } from "./types"

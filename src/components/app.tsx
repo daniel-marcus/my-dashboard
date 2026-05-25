@@ -2,9 +2,9 @@
 
 import { Auth0Provider } from "@auth0/auth0-react"
 import { Toaster } from "sonner"
-import { Login } from "./login"
-import { Dashboard } from "./dashboard"
-import { SettingsProvider } from "@/lib/settings"
+import { Login } from "./Login"
+import { Dashboard } from "./Dashboard"
+import { SettingsProvider } from "@/lib/useSettings"
 
 export const App = () => (
   <SettingsProvider>

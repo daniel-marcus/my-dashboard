@@ -1,13 +1,13 @@
 "use client"
 
-import { EditModeProvider } from "@/lib/edit-mode"
-import { useData } from "@/lib/data"
-import { useOptions } from "@/lib/options"
-import { useSharedRange } from "@/components/chart/chart-sync"
-import { useViewSettings } from "./settings"
-import { Header } from "./header"
-import { View } from "./view/view"
-import { RefreshIcon } from "./icons"
+import { EditModeProvider } from "@/lib/useEditMode"
+import { useData } from "@/lib/useData"
+import { useOptions } from "@/lib/useOptions"
+import { useSharedRange } from "@/components/Chart/useChartSync"
+import { useViewSettings } from "./Settings"
+import { Header } from "./Header"
+import { View } from "./View/View"
+import { RefreshIcon } from "./Icons"
 import { RANGES } from "@/lib/constants"
 
 export function Dashboard() {

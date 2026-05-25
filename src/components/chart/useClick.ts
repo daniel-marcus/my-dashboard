@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import type { MouseEventHandler, Time } from "lightweight-charts"
 import type { ChartApi } from "./types"
-import type { ChartProps } from "./chart"
+import type { ChartProps } from "./Chart"
 
 export function useClick(
   chart: ChartApi,

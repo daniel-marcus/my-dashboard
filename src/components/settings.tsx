@@ -1,8 +1,8 @@
 import { useMemo } from "react"
 import { toast } from "sonner"
 import { z, ZodError } from "zod"
-import { useSettings } from "@/lib/settings"
-import { TextInput } from "./inputs"
+import { useSettings } from "@/lib/useSettings"
+import { TextInput } from "./Inputs"
 import { ViewDefSchema } from "@/lib/schema"
 import type { Setting, SettingsObj, ViewDef } from "@/lib/types"
 

@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { TrashIcon, XIcon } from "@/components/icons"
+import { TrashIcon, XIcon } from "@/components/Icons"
 import type { DataEntry } from "@/lib/types"
-import type { DeleteFunc } from "@/lib/data"
+import type { DeleteFunc } from "@/lib/useData"
 
 export type Selected = { ts: DataEntry["ts"]; key: keyof DataEntry }
 

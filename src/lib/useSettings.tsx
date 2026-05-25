@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import { useLocalStorage } from "./local-storage"
+import { useLocalStorage } from "./useLocalStorage"
 import { DEFAULT_SETTINGS } from "./constants"
 import type { SettingsObj } from "./types"
 

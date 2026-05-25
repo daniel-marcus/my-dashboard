@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useSettings } from "@/lib/settings"
-import { TextInput } from "../inputs"
+import { useSettings } from "@/lib/useSettings"
+import { TextInput } from "../Inputs"
 import { getColor } from "@/lib/colors"
 import type { ViewDef } from "@/lib/types"
 

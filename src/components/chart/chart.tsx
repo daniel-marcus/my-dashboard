@@ -1,10 +1,10 @@
-import { useLightweightChart } from "./lightweight-chart"
-import { useChartData } from "./data"
-import { useDayDividers } from "./day-dividers"
-import { useChartSync } from "./chart-sync"
-import { useClick } from "./click"
+import { useLightweightChart } from "./useLightweightChart"
+import { useChartData } from "./useChartData"
+import { useDayDividers } from "./useDayDividers"
+import { useChartSync } from "./useChartSync"
+import { useClick } from "./useClick"
 import type { DataEntry, ViewDef } from "@/lib/types"
-import type { Selected } from "@/components/view/selected"
+import type { Selected } from "@/components/View/useSelected"
 
 export interface ChartProps {
   data: DataEntry[]
