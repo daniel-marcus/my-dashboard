@@ -10,7 +10,7 @@ export function useChartData(
   data: DataEntry[],
   currView: ViewDef,
   chart: ChartApi,
-  active: boolean
+  active: boolean,
 ) {
   const chartData = useMemo(
     () =>
@@ -25,7 +25,7 @@ export function useChartData(
             customValues: { ts: d.ts }, // keep original timestamp for click/select logic
           })),
       })),
-    [data, currView]
+    [data, currView],
   )
 
   const seriesMapRef = useRef<Map<string, ISeriesApi<"Line">>>(new Map())

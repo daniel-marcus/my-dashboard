@@ -6,7 +6,7 @@ import type { ChartProps } from "./chart"
 export function useClick(
   chart: ChartApi,
   setSelected: ChartProps["setSelected"],
-  key: string | undefined
+  key: string | undefined,
 ) {
   useEffect(() => {
     if (!chart) return

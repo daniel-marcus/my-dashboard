@@ -5,12 +5,12 @@ import type { Option } from "./types"
 export function useOptions<T extends Option>(options: T[]) {
   const defaultOption = useMemo(
     () => options.find((o) => o.default) ?? options[0],
-    [options]
+    [options],
   )
   const [currKey, setCurrKey] = useState(defaultOption.key)
   const currOption = useMemo(
     () => options.find((o) => o.key === currKey) ?? defaultOption,
-    [options, defaultOption, currKey]
+    [options, defaultOption, currKey],
   )
   const Comp: React.FC<{ children?: React.ReactNode }> = (props) => (
     <OptionBar

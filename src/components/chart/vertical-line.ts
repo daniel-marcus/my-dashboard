@@ -22,7 +22,7 @@ class VertLinePaneRenderer implements IPrimitivePaneRenderer {
   constructor(
     x: Coordinate | null,
     options: VertLineOptions,
-    chart: IChartApi
+    chart: IChartApi,
   ) {
     this._x = x
     this._options = options
@@ -35,7 +35,7 @@ class VertLinePaneRenderer implements IPrimitivePaneRenderer {
       const position = positionsLine(
         this._x,
         scope.horizontalPixelRatio,
-        this._options.width
+        this._options.width,
       )
       ctx.fillStyle =
         this._options.color ?? this._chart.options().grid.vertLines.color
@@ -43,7 +43,7 @@ class VertLinePaneRenderer implements IPrimitivePaneRenderer {
         position.position,
         0,
         position.length,
-        scope.bitmapSize.height
+        scope.bitmapSize.height,
       )
     })
   }
@@ -128,7 +128,7 @@ export class VertLine implements ISeriesPrimitive<Time> {
     chart: IChartApi,
     series: ISeriesApi<SeriesType>,
     time: Time,
-    options?: Partial<VertLineOptions>
+    options?: Partial<VertLineOptions>,
   ) {
     const vertLineOptions: VertLineOptions = {
       ...defaultOptions,
@@ -175,7 +175,7 @@ export function positionsLine(
   positionMedia: number,
   pixelRatio: number,
   desiredWidthMedia: number = 1,
-  widthIsBitmap?: boolean
+  widthIsBitmap?: boolean,
 ): BitmapPositionLength {
   const scaledPosition = Math.round(pixelRatio * positionMedia)
   const lineBitmapWidth = widthIsBitmap

@@ -10,7 +10,7 @@ export function ViewSettings({ view }: { view: ViewDef }) {
     setSettings((s) => ({
       ...s,
       views: s.views.map((v) =>
-        v.key === view.key ? { ...v, [key]: newVal } : v
+        v.key === view.key ? { ...v, [key]: newVal } : v,
       ),
     }))
   }

@@ -25,8 +25,8 @@ export const Trend = ({ data, currView }: TrendProps) => {
     Math.abs(trend) < TREND_THRESHOLD
       ? TrendStableIcon
       : trend > 0
-      ? TrendUpIcon
-      : TrendDownIcon
+        ? TrendUpIcon
+        : TrendDownIcon
   return <Icon />
 }
 
@@ -35,7 +35,7 @@ type XYData = { x: number; y: number }
 function linearRegression(data: XYData[]): number {
   const [xSum, ySum] = data.reduce(
     (acc, { x, y }) => [acc[0] + x, acc[1] + y],
-    [0, 0]
+    [0, 0],
   )
   const xMean = xSum / data.length
   const yMean = ySum / data.length
@@ -44,7 +44,7 @@ function linearRegression(data: XYData[]): number {
       acc[0] + (x - xMean) * (y - yMean),
       acc[1] + (x - xMean) ** 2,
     ],
-    [0, 0]
+    [0, 0],
   )
   const beta = ssXY / ssXX
   return beta
