@@ -5,7 +5,7 @@ import nextTs from "eslint-config-next/typescript"
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+  { settings: { react: { version: "19" } } }, // since esling-plugin-next doesn't support ESLint 10 yet
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
