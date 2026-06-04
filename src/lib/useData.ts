@@ -19,8 +19,7 @@ export function useData() {
   const updateData = useCallback(async () => {
     setIsLoading(true)
     const newData = await getData(getAccessTokenSilently, latestTs.current)
-    if (newData.length)
-      latestTs.current = newData.toSorted((a, b) => a.ts - b.ts).pop()?.ts
+    if (newData.length) latestTs.current = newData.toSorted((a, b) => a.ts - b.ts).pop()?.ts
     setData((prevData) => [...prevData, ...newData]) // TODO: merge function to prevent duplicates
     setIsLoading(false)
   }, [getAccessTokenSilently])
@@ -31,9 +30,7 @@ export function useData() {
       setIsLoading(true)
       const success = await deleteData(getAccessTokenSilently, ts, key)
       if (success)
-        setData((prevData) =>
-          prevData.map((d) => (d.ts === ts ? { ...d, [key]: null } : d)),
-        )
+        setData((prevData) => prevData.map((d) => (d.ts === ts ? { ...d, [key]: null } : d)))
       setIsLoading(false)
       return success
     },
@@ -58,13 +55,10 @@ export function useData() {
   return [sortedData, updateData, deleteEntry, isLoading] as const
 }
 
-async function getData(
-  getAccessToken: () => Promise<string>,
-  latestTs?: number,
-) {
+async function getData(getAccessToken: () => Promise<string>, latestTs?: number) {
   if (document.visibilityState === "hidden") return [] as DataEntry[]
   if (!DATA_API) throw new Error("DATA_API is not defined")
-  const accessToken = !!AUTH0_DOMAIN ? await getAccessToken() : ""
+  const accessToken = AUTH0_DOMAIN ? await getAccessToken() : ""
   if (process.env.NODE_ENV === "development") console.log({ accessToken })
   const url = new URL(`${DATA_API}/data`)
   if (latestTs) url.searchParams.set("from", latestTs.toString())
@@ -86,14 +80,10 @@ async function getData(
   }
 }
 
-async function deleteData(
-  getAccessToken: () => Promise<string>,
-  ts: number,
-  key: keyof DataEntry,
-) {
+async function deleteData(getAccessToken: () => Promise<string>, ts: number, key: keyof DataEntry) {
   if (!window.confirm("Sure?")) return
   if (!DATA_API) throw new Error("DATA_API is not defined")
-  const accessToken = !!AUTH0_DOMAIN ? await getAccessToken() : ""
+  const accessToken = AUTH0_DOMAIN ? await getAccessToken() : ""
   const url = new URL(`${DATA_API}/data`)
   url.searchParams.set("ts", String(ts))
   url.searchParams.set("key", key as string)

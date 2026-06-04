@@ -11,11 +11,7 @@ export const OptionBar = (props: OptionBarProps) => {
   const { options, currKey, setCurrKey, children } = props
   return (
     <div className="flex items-center justify-center">
-      <div
-        className={`bubble flex items-center justify-center gap-2 ${
-          !!children ? "pr-2!" : ""
-        }`}
-      >
+      <div className={`bubble flex items-center justify-center gap-2 ${children ? "pr-2!" : ""}`}>
         <div className="flex items-center justify-center gap-1">
           {options.map((o, i) => (
             <button
