@@ -19,11 +19,7 @@ class VertLinePaneRenderer implements IPrimitivePaneRenderer {
   _x: Coordinate | null = null
   _options: VertLineOptions
   _chart: IChartApi
-  constructor(
-    x: Coordinate | null,
-    options: VertLineOptions,
-    chart: IChartApi,
-  ) {
+  constructor(x: Coordinate | null, options: VertLineOptions, chart: IChartApi) {
     this._x = x
     this._options = options
     this._chart = chart
@@ -32,19 +28,9 @@ class VertLinePaneRenderer implements IPrimitivePaneRenderer {
     target.useBitmapCoordinateSpace((scope) => {
       if (this._x === null) return
       const ctx = scope.context
-      const position = positionsLine(
-        this._x,
-        scope.horizontalPixelRatio,
-        this._options.width,
-      )
-      ctx.fillStyle =
-        this._options.color ?? this._chart.options().grid.vertLines.color
-      ctx.fillRect(
-        position.position,
-        0,
-        position.length,
-        scope.bitmapSize.height,
-      )
+      const position = positionsLine(this._x, scope.horizontalPixelRatio, this._options.width)
+      ctx.fillStyle = this._options.color ?? this._chart.options().grid.vertLines.color
+      ctx.fillRect(position.position, 0, position.length, scope.bitmapSize.height)
     })
   }
 }

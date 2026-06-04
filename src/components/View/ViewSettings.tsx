@@ -9,17 +9,12 @@ export function ViewSettings({ view }: { view: ViewDef }) {
   const onChange = (key: string, newVal: string) => {
     setSettings((s) => ({
       ...s,
-      views: s.views.map((v) =>
-        v.key === view.key ? { ...v, [key]: newVal } : v,
-      ),
+      views: s.views.map((v) => (v.key === view.key ? { ...v, [key]: newVal } : v)),
     }))
   }
   return (
     <div className="mb-1 flex flex-col items-start gap-2">
-      <TextInput
-        value={view.unit}
-        onChange={(newVal) => onChange("unit", newVal)}
-      />
+      <TextInput value={view.unit} onChange={(newVal) => onChange("unit", newVal)} />
       <KeyEditor view={view} />
     </div>
   )
@@ -63,9 +58,7 @@ function KeyEditor({ view }: { view: ViewDef }) {
         </button>
       ))}
       <TextInput value={newKey} onChange={setNewKey} />
-      <button onClick={() => addKey(newKey, getColor(view.props.length))}>
-        add
-      </button>
+      <button onClick={() => addKey(newKey, getColor(view.props.length))}>add</button>
     </div>
   )
 }

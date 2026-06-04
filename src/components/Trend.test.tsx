@@ -9,11 +9,9 @@ const view: ViewDef = {
   props: [{ key: "value" }],
 }
 
-const makeData = (values: number[]): DataEntry[] =>
-  values.map((v, i) => ({ ts: i, value: v }))
+const makeData = (values: number[]): DataEntry[] => values.map((v, i) => ({ ts: i, value: v }))
 
-const getFirstPath = (container: HTMLElement) =>
-  container.querySelector("path")?.getAttribute("d")
+const getFirstPath = (container: HTMLElement) => container.querySelector("path")?.getAttribute("d")
 
 // First path of each icon is unique enough to identify it
 const UP_PATH = "M16 7h6v6"
@@ -23,20 +21,14 @@ const STABLE_PATH = "M18 8L22 12L18 16"
 describe("Trend", () => {
   it("renders TrendUpIcon for rising data", () => {
     const { container } = render(
-      <Trend
-        data={makeData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])}
-        currView={view}
-      />,
+      <Trend data={makeData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])} currView={view} />,
     )
     expect(getFirstPath(container)).toBe(UP_PATH)
   })
 
   it("renders TrendDownIcon for falling data", () => {
     const { container } = render(
-      <Trend
-        data={makeData([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])}
-        currView={view}
-      />,
+      <Trend data={makeData([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])} currView={view} />,
     )
     expect(getFirstPath(container)).toBe(DOWN_PATH)
   })

@@ -16,11 +16,7 @@ export function useDayDividers(data: DataEntry[], chart: ChartApi) {
     const xMaxDate = new Date(xMax * 1000)
 
     const whitespaceData: { time: UTCTimestamp }[] = []
-    for (
-      let d = new Date(xMinDate);
-      d <= xMaxDate;
-      d.setDate(d.getDate() + 1)
-    ) {
+    for (let d = new Date(xMinDate); d <= xMaxDate; d.setDate(d.getDate() + 1)) {
       const time = timeToLocal(d.getTime() / 1000)
       whitespaceData.push({ time })
     }

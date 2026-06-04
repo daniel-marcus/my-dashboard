@@ -7,9 +7,7 @@ export const EditModeContext = createContext<
 export function EditModeProvider({ children }: { children: React.ReactNode }) {
   const [editMode, setEditMode] = useState(false)
   return (
-    <EditModeContext.Provider value={[editMode, setEditMode]}>
-      {children}
-    </EditModeContext.Provider>
+    <EditModeContext.Provider value={[editMode, setEditMode]}>{children}</EditModeContext.Provider>
   )
 }
 

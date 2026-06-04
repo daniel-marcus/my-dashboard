@@ -8,13 +8,9 @@ export function Login() {
   useEffect(() => {
     if (pathname === "/login") loginWithRedirect()
   }, [pathname, loginWithRedirect])
-  if ((isAuthenticated && !error) || !process.env.NEXT_PUBLIC_AUTH0_DOMAIN)
-    return null
+  if ((isAuthenticated && !error) || !process.env.NEXT_PUBLIC_AUTH0_DOMAIN) return null
   return (
-    <button
-      className="w-full p-2 bg-gray-100 dark:bg-gray-800"
-      onClick={() => loginWithRedirect()}
-    >
+    <button className="w-full p-2 bg-gray-100 dark:bg-gray-800" onClick={() => loginWithRedirect()}>
       Login
     </button>
   )

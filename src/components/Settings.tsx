@@ -38,9 +38,7 @@ export function useViewSettings() {
     } catch (err) {
       console.error(err)
       if (err instanceof ZodError) {
-        toast.error(
-          "Validation error: Please check JavaScript console for details",
-        )
+        toast.error("Validation error: Please check JavaScript console for details")
       } else if (err instanceof Error) toast.error(err.message)
       return [] as ViewDef[]
     }

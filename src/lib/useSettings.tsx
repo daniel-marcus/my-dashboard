@@ -10,9 +10,7 @@ export const SettingsContext = createContext<
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useLocalStorage<SettingsObj>(DEFAULT_SETTINGS)
   return (
-    <SettingsContext.Provider value={[settings, setSettings]}>
-      {children}
-    </SettingsContext.Provider>
+    <SettingsContext.Provider value={[settings, setSettings]}>{children}</SettingsContext.Provider>
   )
 }
 

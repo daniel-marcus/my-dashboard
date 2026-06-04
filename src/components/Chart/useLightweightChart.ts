@@ -14,8 +14,7 @@ export function useLightweightChart() {
     const newChart = createChart(containerRef.current, {
       ...getStyleOptions(),
       localization: {
-        priceFormatter: (v: number) =>
-          v % 1 === 0 ? v.toString() : v.toFixed(1),
+        priceFormatter: (v: number) => (v % 1 === 0 ? v.toString() : v.toFixed(1)),
       },
       autoSize: true,
       handleScroll: {
@@ -71,5 +70,4 @@ function getStyleOptions(): DeepPartial<ChartOptions> {
   }
 }
 
-const cssvar = (name: string) =>
-  getComputedStyle(document.documentElement).getPropertyValue(name)
+const cssvar = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name)

@@ -22,5 +22,4 @@ export const ViewHeader = ({ currView, data }: ViewHeaderProps) => {
   )
 }
 
-const round = (val: number, digits = 1) =>
-  Math.round(val * 10 ** digits) / 10 ** digits
+const round = (val: number, digits = 1) => Math.round(val * 10 ** digits) / 10 ** digits
