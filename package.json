@@ -13,10 +13,10 @@
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.17.0",
+    "@auth0/auth0-react": "^2.18.0",
     "fancy-canvas": "^2.1.0",
     "lightweight-charts": "^5.2.0",
-    "next": "16.2.7",
+    "next": "16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "sonner": "^2.0.7",
@@ -28,16 +28,16 @@
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260607.1",
+    "@typescript/native-preview": "7.0.0-dev.20260610.1",
     "@vitejs/plugin-react": "^6.0.2",
-    "happy-dom": "^20.9.0",
-    "oxfmt": "^0.53.0",
-    "oxlint": "^1.68.0",
+    "happy-dom": "^20.10.2",
+    "oxfmt": "^0.54.0",
+    "oxlint": "^1.69.0",
     "tailwindcss": "^4.3.0",
     "vitest": "^4.1.8"
   },
   "prettier": {
     "semi": false
   },
-  "packageManager": "pnpm@11.5.1"
+  "packageManager": "pnpm@11.5.3"
 }
