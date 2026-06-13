@@ -13,28 +13,39 @@ export type DeleteFunc = (selected: Selected) => Promise<boolean | undefined>
 export function useData() {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<DataEntry[]>([])
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0()
   const latestTs = useRef<number | undefined>(undefined)
+
+  const getToken = useCallback(async () => {
+    try {
+      return await getAccessTokenSilently()
+    } catch (e: any) {
+      if (e?.error === "missing_refresh_token" || e?.error === "invalid_grant") {
+        loginWithRedirect()
+      }
+      throw e
+    }
+  }, [getAccessTokenSilently, loginWithRedirect])
 
   const updateData = useCallback(async () => {
     setIsLoading(true)
-    const newData = await getData(getAccessTokenSilently, latestTs.current)
+    const newData = await getData(getToken, latestTs.current)
     if (newData.length) latestTs.current = newData.toSorted((a, b) => a.ts - b.ts).pop()?.ts
     setData((prevData) => [...prevData, ...newData]) // TODO: merge function to prevent duplicates
     setIsLoading(false)
-  }, [getAccessTokenSilently])
+  }, [getToken])
 
   const deleteEntry: DeleteFunc = useCallback(
     async (selected: Selected) => {
       const { ts, key } = selected
       setIsLoading(true)
-      const success = await deleteData(getAccessTokenSilently, ts, key)
+      const success = await deleteData(getToken, ts, key)
       if (success)
         setData((prevData) => prevData.map((d) => (d.ts === ts ? { ...d, [key]: null } : d)))
       setIsLoading(false)
       return success
     },
-    [getAccessTokenSilently],
+    [getToken],
   )
 
   useEffect(() => {

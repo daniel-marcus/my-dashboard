@@ -17,6 +17,7 @@ export const App = () => (
         scope: "read:sensor_data",
       }}
       cacheLocation="localstorage"
+      useRefreshTokens={true}
     >
       <Login />
       <Dashboard />
