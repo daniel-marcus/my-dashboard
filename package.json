@@ -30,7 +30,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260612.1",
     "@vitejs/plugin-react": "^6.0.2",
-    "happy-dom": "^20.10.2",
+    "happy-dom": "^20.10.3",
     "oxfmt": "^0.54.0",
     "oxlint": "^1.69.0",
     "tailwindcss": "^4.3.1",
