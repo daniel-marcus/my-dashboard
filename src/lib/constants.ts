@@ -26,6 +26,11 @@ export const VIEWS: ViewDef[] = [
     props: [{ key: "hum" }],
     unit: "%",
   },
+  {
+    key: "press",
+    props: [{ key: "press", color: getColor(1) }],
+    unit: "hPa",
+  },
 ]
 
 const HOUR = 60 * 60
