@@ -10,20 +10,18 @@ export const VIEWS: ViewDef[] = [
   },
   {
     key: "temp",
-    props: [{ key: "temp" }],
-    unit: "°C",
-  },
-  {
-    key: "ext+temp",
     props: [
-      { key: "temp_ext", color: getColor(1) },
       { key: "temp", color: getColor(0) },
+      { key: "temp_ext", color: getColor(1) },
     ],
     unit: "°C",
   },
   {
     key: "hum",
-    props: [{ key: "hum" }],
+    props: [
+      { key: "hum", color: getColor(0) },
+      { key: "hum_ext", color: getColor(1) },
+    ],
     unit: "%",
   },
   {
