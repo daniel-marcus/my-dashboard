@@ -9,11 +9,11 @@
     "test": "vitest run",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "typecheck": "tsgo --noEmit",
+    "typecheck": "tsc --noEmit",
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.19.0",
+    "@auth0/auth0-react": "^2.21.0",
     "fancy-canvas": "^2.1.0",
     "lightweight-charts": "^5.2.0",
     "next": "16.2.10",
@@ -25,19 +25,19 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
     "@testing-library/react": "^16.3.2",
-    "@types/node": "^25.9.3",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260706.1",
     "@vitejs/plugin-react": "^6.0.3",
     "happy-dom": "^20.10.6",
-    "oxfmt": "^0.55.0",
-    "oxlint": "^1.70.0",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
     "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.10"
   },
   "prettier": {
     "semi": false
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.11.0"
 }
