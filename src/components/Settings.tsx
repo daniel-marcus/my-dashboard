@@ -5,6 +5,7 @@ import { useSettings } from "@/lib/useSettings"
 import { TextInput } from "./Inputs"
 import { ViewDefSchema } from "@/lib/schema"
 import type { Setting, SettingsObj, ViewDef } from "@/lib/types"
+import { DEFAULT_SETTINGS } from "@/lib/constants"
 
 const ALL_SETTINGS: Setting[] = [{ key: "title", comp: TextInput }]
 
@@ -24,6 +25,7 @@ export const Settings = () => {
           />
         )
       })}
+      <button onClick={() => setSettings(DEFAULT_SETTINGS)}>Reset All</button>
     </div>
   )
 }
