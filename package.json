@@ -13,7 +13,7 @@
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.21.0",
+    "@auth0/auth0-react": "^2.22.0",
     "fancy-canvas": "^2.1.0",
     "lightweight-charts": "^5.2.0",
     "next": "16.2.10",
