@@ -6,7 +6,7 @@ import type { DataEntry, ViewDef } from "@/lib/types"
 const view: ViewDef = {
   key: "temp",
   unit: "°C",
-  props: [{ key: "value" }],
+  props: [{ key: "value", color: "hsl(342, 70%, 50%)" }],
 }
 
 const makeData = (values: number[]): DataEntry[] => values.map((v, i) => ({ ts: i, value: v }))
@@ -21,21 +21,21 @@ const STABLE_PATH = "M18 8L22 12L18 16"
 describe("Trend", () => {
   it("renders TrendUpIcon for rising data", () => {
     const { container } = render(
-      <Trend data={makeData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])} currView={view} />,
+      <Trend data={makeData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])} view={view} />,
     )
     expect(getFirstPath(container)).toBe(UP_PATH)
   })
 
   it("renders TrendDownIcon for falling data", () => {
     const { container } = render(
-      <Trend data={makeData([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])} currView={view} />,
+      <Trend data={makeData([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])} view={view} />,
     )
     expect(getFirstPath(container)).toBe(DOWN_PATH)
   })
 
   it("renders TrendStableIcon for flat data", () => {
     const { container } = render(
-      <Trend data={makeData([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])} currView={view} />,
+      <Trend data={makeData([5, 5, 5, 5, 5, 5, 5, 5, 5, 5])} view={view} />,
     )
     expect(getFirstPath(container)).toBe(STABLE_PATH)
   })
@@ -43,7 +43,7 @@ describe("Trend", () => {
   it("uses only the last 10 values for trend calculation", () => {
     // first 5 values fall sharply, last 10 rise — trend should be up
     const data = makeData([100, 50, 10, 5, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    const { container } = render(<Trend data={data} currView={view} />)
+    const { container } = render(<Trend data={data} view={view} />)
     expect(getFirstPath(container)).toBe(UP_PATH)
   })
 })

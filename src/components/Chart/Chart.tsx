@@ -8,15 +8,15 @@ import type { Selected } from "@/components/View/useSelected"
 
 export interface ChartProps {
   data: DataEntry[]
-  currView: ViewDef
+  view: ViewDef
   setSelected: React.Dispatch<React.SetStateAction<Selected | undefined>>
 }
 
-export const Chart = ({ data, currView, setSelected }: ChartProps) => {
+export const Chart = ({ data, view, setSelected }: ChartProps) => {
   const [containerRef, chart] = useLightweightChart()
   useDayDividers(data, chart)
-  useChartData(data, currView, chart, true)
+  useChartData(data, view, chart, true)
   useChartSync(chart)
-  useClick(chart, setSelected, currView.props[0]?.key)
+  useClick(chart, setSelected, view.props[0]?.key)
   return <div className="h-full" ref={containerRef} />
 }

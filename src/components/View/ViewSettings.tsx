@@ -1,8 +1,7 @@
 import { useState } from "react"
 import { useSettings } from "@/lib/useSettings"
 import { TextInput } from "../Inputs"
-import { getColor } from "@/lib/colors"
-import type { ViewDef } from "@/lib/types"
+import type { ViewDef, RawViewDef } from "@/lib/types"
 
 export function ViewSettings({ view }: { view: ViewDef }) {
   const [, setSettings] = useSettings()
@@ -24,7 +23,7 @@ type ChangeFunc<T> = (old: T) => T
 
 function KeyEditor({ view }: { view: ViewDef }) {
   const [, setSettings] = useSettings()
-  const updView = (change: ChangeFunc<ViewDef>) => {
+  const updView = (change: ChangeFunc<RawViewDef>) => {
     setSettings((s) => ({
       ...s,
       views: s.views.map((v) => (v.key === view.key ? change(v) : v)),
@@ -32,16 +31,16 @@ function KeyEditor({ view }: { view: ViewDef }) {
   }
   const [newKey, setNewKey] = useState("")
   const delProp = (key: string) => {
-    const change = (v: ViewDef) => ({
+    const change = (v: RawViewDef) => ({
       ...v,
       props: v.props.filter((p) => p.key !== key),
     })
     updView(change)
   }
-  const addKey = (key: string, color?: string) => {
-    const change = (v: ViewDef) => ({
+  const addKey = (key: string) => {
+    const change = (v: RawViewDef) => ({
       ...v,
-      props: [...v.props, { key, color }],
+      props: [...v.props, { key }],
     })
     updView(change)
   }
@@ -51,14 +50,14 @@ function KeyEditor({ view }: { view: ViewDef }) {
         <button
           key={i}
           className="text-white px-2"
-          style={{ backgroundColor: p.color ?? getColor(i) }}
+          style={{ backgroundColor: p.color }}
           onClick={() => delProp(p.key)}
         >
           {p.key}
         </button>
       ))}
       <TextInput value={newKey} onChange={setNewKey} />
-      <button onClick={() => addKey(newKey, getColor(view.props.length))}>add</button>
+      <button onClick={() => addKey(newKey)}>add</button>
     </div>
   )
 }

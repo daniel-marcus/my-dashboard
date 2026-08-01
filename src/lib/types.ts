@@ -5,6 +5,7 @@ import type { FC } from "react"
 export type Option = z.infer<typeof OptionSchema>
 
 export type ViewDef = z.infer<typeof ViewDefSchema>
+export type RawViewDef = z.input<typeof ViewDefSchema>
 
 export interface RangeDef extends Option {
   rangeMs?: number
@@ -27,5 +28,5 @@ export interface Setting<T = string> {
 
 export interface SettingsObj {
   title: string
-  views: ViewDef[]
+  views: RawViewDef[]
 }

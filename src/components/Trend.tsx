@@ -9,18 +9,18 @@ const TREND_THRESHOLD = 0.01
 
 interface TrendProps {
   data: DataEntry[]
-  currView: ViewDef
+  view: ViewDef
 }
 
-export const Trend = ({ data, currView }: TrendProps) => {
+export const Trend = ({ data, view }: TrendProps) => {
   const trend = useMemo(() => {
-    const firstPropKey = currView.props[0].key
+    const firstPropKey = view.props[0].key
     const latestVals = data
       .filter((d) => typeof d[firstPropKey] === "number")
       .slice(-TREND_VALS) // use last x values for trend
       .map((d, i) => ({ x: i, y: d[firstPropKey]! }))
     return linearRegression(latestVals)
-  }, [data, currView])
+  }, [data, view])
   const Icon =
     Math.abs(trend) < TREND_THRESHOLD ? TrendStableIcon : trend > 0 ? TrendUpIcon : TrendDownIcon
   return <Icon />

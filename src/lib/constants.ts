@@ -1,7 +1,7 @@
 import { getColor } from "./colors"
-import type { ViewDef, RangeDef, SettingsObj } from "./types"
+import type { RawViewDef, RangeDef, SettingsObj } from "./types"
 
-export const VIEWS: ViewDef[] = [
+export const VIEWS: RawViewDef[] = [
   {
     key: "co2",
     props: [{ key: "co2" }],
@@ -10,18 +10,12 @@ export const VIEWS: ViewDef[] = [
   },
   {
     key: "temp",
-    props: [
-      { key: "temp", color: getColor(0) },
-      { key: "temp_ext", color: getColor(1) },
-    ],
+    props: [{ key: "temp" }, { key: "temp_ext" }],
     unit: "°C",
   },
   {
     key: "hum",
-    props: [
-      { key: "hum", color: getColor(0) },
-      { key: "hum_ext", color: getColor(1) },
-    ],
+    props: [{ key: "hum" }, { key: "hum_ext" }],
     unit: "%",
   },
   {
