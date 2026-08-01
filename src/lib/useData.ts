@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { toast } from "sonner"
 import type { DataEntry, Resolution } from "./types"
 import type { Selected } from "@/components/View/useSelected"
+import { useIndexedDB } from "./useIndexedDB"
 
 const DATA_API = process.env.NEXT_PUBLIC_DATA_API
 const AUTH0_DOMAIN = process.env.NEXT_PUBLIC_AUTH0_DOMAIN
@@ -12,7 +13,8 @@ export type DeleteFunc = (selected: Selected) => Promise<boolean | undefined>
 
 export function useData(resolution?: Resolution) {
   const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState<DataEntry[]>([])
+  const dbKey = `data-${resolution ?? "default"}`
+  const [data, setData, isLoaded] = useIndexedDB<DataEntry[]>(dbKey, [])
   const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0()
   const latestTs = useRef<number | undefined>(undefined)
 
@@ -33,7 +35,7 @@ export function useData(resolution?: Resolution) {
     if (newData.length) latestTs.current = newData.toSorted((a, b) => a.ts - b.ts).pop()?.ts
     setData((prevData) => mergeData(prevData, newData))
     setIsLoading(false)
-  }, [getToken, resolution])
+  }, [getToken, resolution, setData])
 
   const deleteEntry: DeleteFunc = useCallback(
     async (selected: Selected) => {
@@ -45,15 +47,16 @@ export function useData(resolution?: Resolution) {
       setIsLoading(false)
       return success
     },
-    [getToken],
+    [getToken, setData],
   )
 
   useEffect(() => {
-    setData([])
-    latestTs.current = undefined
-  }, [resolution])
+    if (isLoaded) latestTs.current = data.toSorted((a, b) => a.ts - b.ts).pop()?.ts
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded])
 
   useEffect(() => {
+    if (!isLoaded) return
     if (!!AUTH0_DOMAIN && !isAuthenticated) return
     const initial = setTimeout(updateData, 0)
     const interval = setInterval(updateData, UPD_INTERVAL)
@@ -64,7 +67,7 @@ export function useData(resolution?: Resolution) {
       clearInterval(interval)
       document.removeEventListener("visibilitychange", onTabResumed)
     }
-  }, [isAuthenticated, updateData])
+  }, [isAuthenticated, updateData, isLoaded])
 
   const sortedData = useMemo(() => data.sort((a, b) => a.ts - b.ts), [data])
 
