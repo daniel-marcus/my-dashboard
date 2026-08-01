@@ -14,7 +14,8 @@ interface TrendProps {
 
 export const Trend = ({ data, view }: TrendProps) => {
   const trend = useMemo(() => {
-    const firstPropKey = view.props[0].key
+    const firstPropKey = view.props[0]?.key
+    if (!firstPropKey) return 0
     const latestVals = data
       .filter((d) => typeof d[firstPropKey] === "number")
       .slice(-TREND_VALS) // use last x values for trend
