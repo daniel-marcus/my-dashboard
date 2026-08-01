@@ -13,12 +13,15 @@ export const OptionBar = (props: OptionBarProps) => {
       {options.map((o, i) => (
         <button
           key={i}
-          className={`p-2 rounded-md hover:bg-gray-200/50 dark:hover:bg-gray-800/50 ${
-            currKey === o.key ? "font-bold" : ""
-          }`}
+          className="grid place-items-center p-2 rounded-md hover:bg-gray-200/50 dark:hover:bg-gray-800/50"
           onClick={() => setCurrKey(o.key)}
         >
-          {o.key}
+          <span aria-hidden="true" className="invisible font-bold col-start-1 row-start-1">
+            {o.key}
+          </span>
+          <span className={`col-start-1 row-start-1 ${currKey === o.key ? "font-bold" : ""}`}>
+            {o.key}
+          </span>
         </button>
       ))}
     </div>
