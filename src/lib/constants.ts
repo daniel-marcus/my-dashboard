@@ -3,18 +3,22 @@ import type { RawViewDef, RangeDef, SettingsObj, ResolutionDef } from "./types"
 
 export const VIEWS: RawViewDef[] = [
   {
+    key: "co2",
     props: [{ key: "co2" }],
     unit: "ppm",
   },
   {
+    key: "temp",
     props: [{ key: "temp" }, { key: "temp_ext" }],
     unit: "°C",
   },
   {
+    key: "hum",
     props: [{ key: "hum" }, { key: "hum_ext" }],
     unit: "%",
   },
   {
+    key: "press",
     props: [{ key: "press", color: getColor(1) }],
     unit: "hPa",
   },
