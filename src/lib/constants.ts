@@ -21,15 +21,15 @@ export const VIEWS: RawViewDef[] = [
 ]
 
 const HOUR = 60 * 60
+const DAY = 24 * HOUR
+const MONTH = 30 * DAY
 
 export const RANGES: RangeDef[] = [
-  { key: "all" },
-  { key: "48h", rangeMs: 48 * HOUR },
-  { key: "24h", rangeMs: 24 * HOUR },
-  { key: "12h", rangeMs: 12 * HOUR },
-  { key: "6h", rangeMs: 6 * HOUR },
-  { key: "3h", rangeMs: 3 * HOUR, default: true },
-  { key: "1h", rangeMs: HOUR },
+  { key: "year", rangeMs: 12 * MONTH, resolution: "day" },
+  { key: "month", rangeMs: MONTH, resolution: "hour" },
+  { key: "week", rangeMs: 7 * DAY, resolution: "hour" },
+  { key: "day", rangeMs: DAY, default: true, resolution: "minute" },
+  { key: "hour", rangeMs: HOUR, resolution: "minute" },
 ]
 
 export const RESOLUTIONS: ResolutionDef[] = [

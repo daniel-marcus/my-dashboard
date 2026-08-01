@@ -7,11 +7,12 @@ export type Option = z.infer<typeof OptionSchema>
 export type ViewDef = z.infer<typeof ViewDefSchema>
 export type RawViewDef = z.input<typeof ViewDefSchema>
 
+export type Resolution = "day" | "hour" | "minute"
+
 export interface RangeDef extends Option {
   rangeMs?: number
+  resolution: Resolution
 }
-
-export type Resolution = "day" | "hour" | "minute"
 
 export interface ResolutionDef extends Option {
   key: Resolution
