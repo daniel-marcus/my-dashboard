@@ -7,9 +7,9 @@ import { useSharedRange } from "@/components/Chart/useChartSync"
 import { useViewSettings } from "./Settings"
 import { Header } from "./Header"
 import { View } from "./View/View"
+import { OptionBarWrapper } from "./OptionBar"
 import { RefreshIcon } from "./Icons"
 import { RANGES } from "@/lib/constants"
-import { OptionBarWrapper } from "./OptionBar"
 
 export function Dashboard() {
   const [currRange, RangesBar] = useOptions(RANGES)

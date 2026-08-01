@@ -27,7 +27,7 @@ const MONTH = 30 * DAY
 export const RANGES: RangeDef[] = [
   { key: "year", rangeMs: 12 * MONTH, resolution: "day" },
   { key: "month", rangeMs: MONTH, resolution: "hour" },
-  { key: "week", rangeMs: 7 * DAY, resolution: "hour" },
+  { key: "week", rangeMs: 7 * DAY, resolution: "minute" },
   { key: "day", rangeMs: DAY, default: true, resolution: "minute" },
   { key: "hour", rangeMs: HOUR, resolution: "minute" },
 ]
