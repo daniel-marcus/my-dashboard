@@ -12,11 +12,13 @@ const PropSchema = z.object({
   hidden: z.boolean().optional(),
 })
 
-export const ViewDefSchema = OptionSchema.extend({
-  props: z.array(PropSchema),
-  label: z.string().optional(),
-  unit: z.string(),
-}).transform((view) => ({
-  ...view,
-  props: view.props.map((p, i) => ({ ...p, color: p.color ?? getColor(i) })),
-}))
+export const ViewDefSchema = z
+  .object({
+    props: z.array(PropSchema),
+    label: z.string().optional(),
+    unit: z.string(),
+  })
+  .transform((view) => ({
+    ...view,
+    props: view.props.map((p, i) => ({ ...p, color: p.color ?? getColor(i) })),
+  }))

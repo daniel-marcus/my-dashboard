@@ -1,25 +1,20 @@
 import { getColor } from "./colors"
-import type { RawViewDef, RangeDef, SettingsObj } from "./types"
+import type { RawViewDef, RangeDef, SettingsObj, ResolutionDef } from "./types"
 
 export const VIEWS: RawViewDef[] = [
   {
-    key: "co2",
     props: [{ key: "co2" }],
     unit: "ppm",
-    default: true,
   },
   {
-    key: "temp",
     props: [{ key: "temp" }, { key: "temp_ext" }],
     unit: "°C",
   },
   {
-    key: "hum",
     props: [{ key: "hum" }, { key: "hum_ext" }],
     unit: "%",
   },
   {
-    key: "press",
     props: [{ key: "press", color: getColor(1) }],
     unit: "hPa",
   },
@@ -35,6 +30,12 @@ export const RANGES: RangeDef[] = [
   { key: "6h", rangeMs: 6 * HOUR },
   { key: "3h", rangeMs: 3 * HOUR, default: true },
   { key: "1h", rangeMs: HOUR },
+]
+
+export const RESOLUTIONS: ResolutionDef[] = [
+  { key: "day" },
+  { key: "hour" },
+  { key: "minute", default: true },
 ]
 
 export const DEFAULT_SETTINGS: SettingsObj = {

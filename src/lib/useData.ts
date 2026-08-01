@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { toast } from "sonner"
-import type { DataEntry } from "./types"
+import type { DataEntry, Resolution } from "./types"
 import type { Selected } from "@/components/View/useSelected"
 
 const DATA_API = process.env.NEXT_PUBLIC_DATA_API
@@ -10,7 +10,7 @@ const UPD_INTERVAL = 60000
 
 export type DeleteFunc = (selected: Selected) => Promise<boolean | undefined>
 
-export function useData() {
+export function useData(resolution?: Resolution) {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<DataEntry[]>([])
   const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0()
@@ -29,11 +29,11 @@ export function useData() {
 
   const updateData = useCallback(async () => {
     setIsLoading(true)
-    const newData = await getData(getToken, latestTs.current)
+    const newData = await getData(getToken, resolution, latestTs.current)
     if (newData.length) latestTs.current = newData.toSorted((a, b) => a.ts - b.ts).pop()?.ts
-    setData((prevData) => [...prevData, ...newData]) // TODO: merge function to prevent duplicates
+    setData((prevData) => mergeData(prevData, newData))
     setIsLoading(false)
-  }, [getToken])
+  }, [getToken, resolution])
 
   const deleteEntry: DeleteFunc = useCallback(
     async (selected: Selected) => {
@@ -47,6 +47,11 @@ export function useData() {
     },
     [getToken],
   )
+
+  useEffect(() => {
+    setData([])
+    latestTs.current = undefined
+  }, [resolution])
 
   useEffect(() => {
     if (!!AUTH0_DOMAIN && !isAuthenticated) return
@@ -66,12 +71,23 @@ export function useData() {
   return [sortedData, updateData, deleteEntry, isLoading] as const
 }
 
-async function getData(getAccessToken: () => Promise<string>, latestTs?: number) {
+function mergeData(prevData: DataEntry[], newData: DataEntry[]) {
+  const byTs = new Map(prevData.map((d) => [d.ts, d]))
+  for (const d of newData) byTs.set(d.ts, d)
+  return [...byTs.values()]
+}
+
+async function getData(
+  getAccessToken: () => Promise<string>,
+  resolution?: Resolution,
+  latestTs?: number,
+) {
   if (document.visibilityState === "hidden") return [] as DataEntry[]
   if (!DATA_API) throw new Error("DATA_API is not defined")
   const accessToken = AUTH0_DOMAIN ? await getAccessToken() : ""
   if (process.env.NODE_ENV === "development") console.log({ accessToken })
   const url = new URL(`${DATA_API}/data`)
+  if (resolution) url.searchParams.set("resolution", resolution)
   if (latestTs) url.searchParams.set("from", latestTs.toString())
   try {
     const res = await fetch(url, {

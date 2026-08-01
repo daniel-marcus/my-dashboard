@@ -11,6 +11,12 @@ export interface RangeDef extends Option {
   rangeMs?: number
 }
 
+export type Resolution = "day" | "hour" | "minute"
+
+export interface ResolutionDef extends Option {
+  key: Resolution
+}
+
 export interface DataEntry {
   ts: number // Unix timestamp in seconds
   [key: string]: number | null

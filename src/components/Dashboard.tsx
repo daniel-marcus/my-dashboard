@@ -8,11 +8,12 @@ import { useViewSettings } from "./Settings"
 import { Header } from "./Header"
 import { View } from "./View/View"
 import { RefreshIcon } from "./Icons"
-import { RANGES } from "@/lib/constants"
+import { RANGES, RESOLUTIONS } from "@/lib/constants"
 
 export function Dashboard() {
-  const [data, updateData, deleteEntry, isLoading] = useData()
   const [currRange, RangesBar] = useOptions(RANGES)
+  const [resolution, ResolutionsBar] = useOptions(RESOLUTIONS)
+  const [data, updateData, deleteEntry, isLoading] = useData(resolution.key)
   useSharedRange(data, currRange)
   const views = useViewSettings()
   return (
@@ -28,6 +29,7 @@ export function Dashboard() {
           <RangesBar>
             <RefreshBtn onClick={updateData} isLoading={isLoading} />
           </RangesBar>
+          <ResolutionsBar />
         </div>
       </main>
     </EditModeProvider>
