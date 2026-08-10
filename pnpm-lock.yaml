@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@auth0/auth0-react':
-        specifier: ^2.22.1
-        version: 2.22.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^2.23.0
+        version: 2.23.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       fancy-canvas:
         specifier: ^2.1.0
         version: 2.1.0
@@ -82,8 +82,8 @@ packages:
   '@auth0/auth0-auth-js@1.12.0':
     resolution: {integrity: sha512-94r29UxcFEdroO74TUqu5KYy5hSKa6mCXY8lu4hADiyES8qthlSCwaCPEW1adpM5hdheltQ7s1o9TsK8Btyjvg==}
 
-  '@auth0/auth0-react@2.22.1':
-    resolution: {integrity: sha512-3hyexxNOTN3K6wrSu7/HNN15dXhM51vHTLykvhc7+yPGZj31Fxn5KP1W/j7udDBKne1f26+DVI6TgMXSc6H6LQ==}
+  '@auth0/auth0-react@2.23.0':
+    resolution: {integrity: sha512-oyvZWPoGPSAEf/ZM+1BxOBqCsS7l8vxA+USR62C41z4bmgvulWEafNJDx9X0E91qPkHc9mEjwdah66GaZuQLeg==}
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
       react-dom: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
@@ -1396,7 +1396,7 @@ snapshots:
       jose: 6.2.8
       openid-client: 6.8.4
 
-  '@auth0/auth0-react@2.22.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@auth0/auth0-react@2.23.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@auth0/auth0-spa-js': 2.24.1
       react: 19.2.8
