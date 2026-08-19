@@ -23,20 +23,15 @@ export function useIndexedDB<T>(dbKey: string, initialValue: T) {
   const [allData, setAllData] = useState<Record<string, T>>({})
   const [loadedKeys, setLoadedKeys] = useState<Set<string>>(new Set())
   const requestedKeys = useRef<Set<string>>(new Set())
-  const unmounted = useRef(false)
-  const initialValueRef = useRef(initialValue)
-  initialValueRef.current = initialValue
 
   // Seed a newly-seen dbKey synchronously during render so `value` is
   // always sourced from the stable `allData` map, never a fresh literal.
   if (!(dbKey in allData)) {
-    setAllData((prev) => ({ ...prev, [dbKey]: initialValueRef.current }))
+    setAllData((prev) => ({ ...prev, [dbKey]: initialValue }))
   }
 
   const isLoaded = loadedKeys.has(dbKey)
   const value = dbKey in allData ? allData[dbKey] : initialValue
-
-  useEffect(() => () => void (unmounted.current = true), [])
 
   // Fetch each dbKey from IndexedDB at most once per hook lifetime, keyed
   // independently so switching between already-visited keys never refetches
@@ -52,7 +47,6 @@ export function useIndexedDB<T>(dbKey: string, initialValue: T) {
       } catch (err) {
         console.error(err)
       }
-      if (unmounted.current) return
       if (stored !== undefined) setAllData((prev) => ({ ...prev, [dbKey]: stored as T }))
       setLoadedKeys((prev) => new Set(prev).add(dbKey))
     })()
@@ -73,12 +67,12 @@ export function useIndexedDB<T>(dbKey: string, initialValue: T) {
   const setValue = useCallback(
     (val: T | ((prev: T) => T)) => {
       setAllData((prev) => {
-        const prevValue = dbKey in prev ? prev[dbKey] : initialValueRef.current
+        const prevValue = dbKey in prev ? prev[dbKey] : initialValue
         const nextValue = typeof val === "function" ? (val as (prev: T) => T)(prevValue) : val
         return { ...prev, [dbKey]: nextValue }
       })
     },
-    [dbKey],
+    [dbKey, initialValue],
   )
 
   return [value, setValue, isLoaded] as const

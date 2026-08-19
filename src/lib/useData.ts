@@ -8,13 +8,14 @@ import { useIndexedDB } from "./useIndexedDB"
 const DATA_API = process.env.NEXT_PUBLIC_DATA_API
 const AUTH0_DOMAIN = process.env.NEXT_PUBLIC_AUTH0_DOMAIN
 const UPD_INTERVAL = 60000
+const EMPTY_DATA: DataEntry[] = []
 
 export type DeleteFunc = (selected: Selected) => Promise<boolean | undefined>
 
 export function useData(resolution?: Resolution) {
   const [isLoading, setIsLoading] = useState(false)
   const dbKey = `data-${resolution ?? "default"}`
-  const [data, setData, isLoaded] = useIndexedDB<DataEntry[]>(dbKey, [])
+  const [data, setData, isLoaded] = useIndexedDB<DataEntry[]>(dbKey, EMPTY_DATA)
   const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0()
   const latestTs = useRef<number | undefined>(undefined)
 
