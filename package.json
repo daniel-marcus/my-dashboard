@@ -14,11 +14,11 @@
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.22.1",
+    "@auth0/auth0-react": "^2.24.1",
     "fancy-canvas": "^2.1.0",
     "idb": "^8.0.3",
-    "lightweight-charts": "^5.2.0",
-    "next": "16.3.0",
+    "lightweight-charts": "^5.2.1",
+    "next": "16.3.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "sonner": "^2.0.8",
@@ -27,19 +27,19 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/react": "^16.3.2",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
     "happy-dom": "^20.11.2",
-    "oxfmt": "^0.62.0",
-    "oxlint": "^1.77.0",
+    "oxfmt": "^0.64.0",
+    "oxlint": "^1.79.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "prettier": {
     "semi": false
   },
-  "packageManager": "pnpm@11.18.0"
+  "packageManager": "pnpm@11.22.0"
 }
