@@ -11,6 +11,7 @@ const UPD_INTERVAL = 60000
 const EMPTY_DATA: DataEntry[] = []
 
 export type DeleteFunc = (selected: Selected) => Promise<boolean | undefined>
+type GetTokenFunc = () => ReturnType<ReturnType<typeof useAuth0>["getAccessTokenSilently"]>
 
 export function useData(resolution?: Resolution) {
   const [isLoading, setIsLoading] = useState(false)
@@ -81,11 +82,7 @@ function mergeData(prevData: DataEntry[], newData: DataEntry[]) {
   return [...byTs.values()]
 }
 
-async function getData(
-  getAccessToken: () => Promise<string>,
-  resolution?: Resolution,
-  latestTs?: number,
-) {
+async function getData(getAccessToken: GetTokenFunc, resolution?: Resolution, latestTs?: number) {
   if (document.visibilityState === "hidden") return [] as DataEntry[]
   if (!DATA_API) throw new Error("DATA_API is not defined")
   const accessToken = AUTH0_DOMAIN ? await getAccessToken() : ""
@@ -111,7 +108,7 @@ async function getData(
   }
 }
 
-async function deleteData(getAccessToken: () => Promise<string>, ts: number, key: keyof DataEntry) {
+async function deleteData(getAccessToken: GetTokenFunc, ts: number, key: keyof DataEntry) {
   if (!window.confirm("Sure?")) return
   if (!DATA_API) throw new Error("DATA_API is not defined")
   const accessToken = AUTH0_DOMAIN ? await getAccessToken() : ""
