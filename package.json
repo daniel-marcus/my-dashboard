@@ -14,7 +14,7 @@
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.26.0",
+    "@auth0/auth0-react": "^2.27.0",
     "fancy-canvas": "^2.1.0",
     "idb": "^8.0.3",
     "lightweight-charts": "^5.2.1",
