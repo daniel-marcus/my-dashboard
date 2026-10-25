@@ -42,4 +42,16 @@ describe("useChartData", () => {
 
     expect(removeSeries).toHaveBeenCalledTimes(1)
   })
+
+  it("keeps times strictly ascending across the autumn DST switch", () => {
+    process.env.TZ = "Europe/Berlin"
+    // 2026-10-25 00:58–01:01 UTC: local 02:58 CEST, 02:59 CEST, 02:00 CET, 02:01 CET
+    const dstData: DataEntry[] = [1792889880, 1792889940, 1792890000, 1792890060].map((ts) => ({
+      ts,
+      temp: 20,
+    }))
+    const { result } = renderHook(() => useChartData(dstData, view, null, false))
+    const times = result.current[0].data.map((d) => d.time)
+    expect(times).toEqual([1792889880, 1792889940, 1792890000, 1792890060])
+  })
 })

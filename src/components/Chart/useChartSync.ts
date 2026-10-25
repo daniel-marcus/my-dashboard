@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { timeToLocal } from "./timezones"
 import type { IChartApi, IRange, ISeriesApi } from "lightweight-charts"
 import type { TimeRangeChangeEventHandler, Time } from "lightweight-charts"
 import type { MouseEventHandler, UTCTimestamp } from "lightweight-charts"
@@ -87,7 +86,7 @@ export function useSharedRange(data: DataEntry[], currRange: RangeDef) {
   useEffect(() => {
     if (!data.length) return
     const latest = data.at(-1)!
-    const to = timeToLocal(latest.ts)
+    const to = latest.ts as UTCTimestamp
     const from = (
       typeof currRange.rangeMs === "number" ? to - currRange.rangeMs : 0
     ) as UTCTimestamp

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { createChart, ColorType } from "lightweight-charts"
 import { useIsDarkMode } from "@/lib/useIsDarkMode"
+import { timeFormatter, tickMarkFormatter } from "./timezones"
 import type { ChartOptions, DeepPartial } from "lightweight-charts"
 import type { ChartApi } from "./types"
 
@@ -15,6 +16,7 @@ export function useLightweightChart() {
       ...getStyleOptions(),
       localization: {
         priceFormatter: (v: number) => (v % 1 === 0 ? v.toString() : v.toFixed(1)),
+        timeFormatter,
       },
       autoSize: true,
       handleScroll: {
@@ -66,6 +68,7 @@ function getStyleOptions(): DeepPartial<ChartOptions> {
       minBarSpacing: 0,
       fixLeftEdge: true,
       fixRightEdge: true,
+      tickMarkFormatter,
     },
   }
 }

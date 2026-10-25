@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef } from "react"
 import { LineSeries, type Time, type UTCTimestamp } from "lightweight-charts"
 import { VertLine } from "./VertLine"
-import { timeToLocal } from "./timezones"
 import type { DataEntry } from "@/lib/types"
 import type { ChartApi } from "./types"
 
@@ -22,7 +21,7 @@ export function useDayDividers(data: DataEntry[], chart: ChartApi) {
 
     const whitespaceData: { time: UTCTimestamp; isMonthStart: boolean }[] = []
     for (let d = new Date(xMinDate); d <= xMaxDate; d.setDate(d.getDate() + 1)) {
-      const time = timeToLocal(d.getTime() / 1000)
+      const time = (d.getTime() / 1000) as UTCTimestamp
       whitespaceData.push({ time, isMonthStart: d.getDate() === 1 })
     }
     dividerSeries.setData(whitespaceData.map(({ time }) => ({ time })))

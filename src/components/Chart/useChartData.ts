@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef } from "react"
-import { ISeriesApi, LineSeries } from "lightweight-charts"
-import { timeToLocal } from "./timezones"
+import { ISeriesApi, LineSeries, type UTCTimestamp } from "lightweight-charts"
 import { chartSync } from "./useChartSync"
 import type { DataEntry, ViewDef } from "@/lib/types"
 import type { ChartApi } from "./types"
@@ -15,9 +14,9 @@ export function useChartData(data: DataEntry[], view: ViewDef, chart: ChartApi, 
         data: data
           .filter((d) => typeof d[p.key] === "number")
           .map((d) => ({
-            time: timeToLocal(d.ts),
+            time: d.ts as UTCTimestamp,
             value: d[p.key]!,
-            customValues: { ts: d.ts }, // keep original timestamp for click/select logic
+            customValues: { ts: d.ts }, // used by click/select logic
           })),
       })),
     [data, view],
